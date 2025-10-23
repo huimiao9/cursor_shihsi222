@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的日记本</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="header">
+            <h1>📖 我的日记本</h1>
+            <p class="subtitle">记录每一个美好瞬间</p>
+        </header>
+
+        <!-- 写日记区域 -->
+        <div class="diary-editor" id="diaryEditor">
+            <div class="editor-header">
+                <h2 id="editorTitle">✍️ 写新日记</h2>
+                <button class="btn-close" id="btnCancelEdit" style="display: none;">取消</button>
+            </div>
+            
+            <form id="diaryForm">
+                <div class="form-group">
+                    <label for="diaryTitle">标题</label>
+                    <input 
+                        type="text" 
+                        id="diaryTitle" 
+                        class="form-control" 
+                        placeholder="给今天起个标题..." 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="diaryDate">日期</label>
+                    <input 
+                        type="date" 
+                        id="diaryDate" 
+                        class="form-control" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="diaryMood">心情</label>
+                    <select id="diaryMood" class="form-control">
+                        <option value="😊">😊 开心</option>
+                        <option value="😌">😌 平静</option>
+                        <option value="😢">😢 难过</option>
+                        <option value="😡">😡 生气</option>
+                        <option value="😴">😴 困倦</option>
+                        <option value="🤔">🤔 思考</option>
+                        <option value="🥳">🥳 兴奋</option>
+                        <option value="😰">😰 焦虑</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="diaryContent">内容</label>
+                    <textarea 
+                        id="diaryContent" 
+                        class="form-control" 
+                        rows="8" 
+                        placeholder="写下你的心情和故事..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">
+                        <span id="btnSubmitText">保存日记</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 搜索和筛选区域 -->
+        <div class="search-bar">
+            <div class="search-group">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="🔍 搜索日记标题或内容..."
+                >
+            </div>
+            <div class="filter-group">
+                <select id="moodFilter" class="filter-select">
+                    <option value="">全部心情</option>
+                    <option value="😊">😊 开心</option>
+                    <option value="😌">😌 平静</option>
+                    <option value="😢">😢 难过</option>
+                    <option value="😡">😡 生气</option>
+                    <option value="😴">😴 困倦</option>
+                    <option value="🤔">🤔 思考</option>
+                    <option value="🥳">🥳 兴奋</option>
+                    <option value="😰">😰 焦虑</option>
+                </select>
+                <select id="sortOrder" class="filter-select">
+                    <option value="desc">最新优先</option>
+                    <option value="asc">最早优先</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="totalEntries">0</span>
+                <span class="stat-label">篇日记</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="totalWords">0</span>
+                <span class="stat-label">字</span>
+            </div>
+        </div>
+
+        <!-- 日记列表 -->
+        <div class="diary-list" id="diaryList">
+            <!-- 日记条目将通过JavaScript动态生成 -->
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon">📝</div>
+            <h3>还没有日记</h3>
+            <p>开始记录你的第一篇日记吧！</p>
+        </div>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h3>确认删除</h3>
+            <p>确定要删除这篇日记吗？此操作无法撤销。</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="btnCancelDelete">取消</button>
+                <button class="btn btn-danger" id="btnConfirmDelete">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
