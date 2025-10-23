@@ -8,26 +8,34 @@
 :root {
     --primary-color: #6366f1;
     --primary-hover: #4f46e5;
+    --primary-light: #818cf8;
     --secondary-color: #8b5cf6;
     --danger-color: #ef4444;
     --danger-hover: #dc2626;
     --success-color: #10b981;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
+    --text-light: #9ca3af;
     --bg-primary: #ffffff;
     --bg-secondary: #f9fafb;
+    --bg-hover: #f3f4f6;
     --border-color: #e5e7eb;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --border-radius: 12px;
-    --transition: all 0.3s ease;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    --border-radius: 16px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 20px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
         'Microsoft YaHei', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-attachment: fixed;
     min-height: 100vh;
     padding: 2rem 1rem;
     color: var(--text-primary);
@@ -49,24 +57,29 @@ body {
 
 .header h1 {
     font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
     font-size: 1.125rem;
     opacity: 0.95;
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
 /* 日记编辑器 */
 .diary-editor {
     background: var(--bg-primary);
-    border-radius: var(--border-radius);
-    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
     margin-bottom: 2rem;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
     animation: fadeInUp 0.6s ease;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 .editor-header {
@@ -77,23 +90,29 @@ body {
 }
 
 .editor-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
+    font-weight: 700;
     color: var(--text-primary);
+    letter-spacing: -0.3px;
 }
 
 .btn-close {
     background: transparent;
-    border: none;
+    border: 2px solid var(--border-color);
     color: var(--text-secondary);
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--border-radius-sm);
     transition: var(--transition);
+    font-weight: 600;
+    font-size: 0.875rem;
 }
 
 .btn-close:hover {
     background: var(--bg-secondary);
+    border-color: #d1d5db;
     color: var(--text-primary);
+    transform: translateY(-1px);
 }
 
 /* 表单样式 */
@@ -103,44 +122,55 @@ body {
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    margin-bottom: 0.625rem;
+    font-weight: 700;
     color: var(--text-primary);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
 }
 
 .form-control {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 1.125rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     font-size: 1rem;
     transition: var(--transition);
     font-family: inherit;
+    background-color: var(--bg-secondary);
+}
+
+.form-control:hover {
+    border-color: #d1d5db;
+    background-color: var(--bg-primary);
 }
 
 .form-control:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
 }
 
 textarea.form-control {
     resize: vertical;
-    min-height: 150px;
+    min-height: 180px;
+    line-height: 1.7;
 }
 
 select.form-control {
     cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%236b7280%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e');\n    background-repeat: no-repeat;\n    background-position: right 0.75rem center;\n    background-size: 1.25rem;\n    padding-right: 2.5rem;
 }
 
 /* 按钮样式 */
 .btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.875rem 1.75rem;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -148,35 +178,66 @@ select.form-control {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
     color: white;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--primary-hover);
+    background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .btn-secondary {
     background: var(--bg-secondary);
     color: var(--text-primary);
+    border: 2px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-    background: var(--border-color);
+    background: var(--bg-hover);
+    border-color: #d1d5db;
+    transform: translateY(-1px);
 }
 
 .btn-danger {
-    background: var(--danger-color);
+    background: linear-gradient(135deg, var(--danger-color), #f87171);
     color: white;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
 
 .btn-danger:hover {
-    background: var(--danger-hover);
+    background: linear-gradient(135deg, var(--danger-hover), var(--danger-color));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
 }
 
 .form-actions {
@@ -187,14 +248,16 @@ select.form-control {
 
 /* 搜索栏 */
 .search-bar {
-    background: white;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.75rem;
+    border-radius: var(--border-radius-lg);
     margin-bottom: 1.5rem;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     animation: fadeInUp 0.6s ease 0.1s backwards;
 }
 
@@ -205,17 +268,25 @@ select.form-control {
 
 .search-input {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 1.125rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     font-size: 1rem;
     transition: var(--transition);
+    background-color: var(--bg-secondary);
+}
+
+.search-input:hover {
+    border-color: #d1d5db;
+    background-color: var(--bg-primary);
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
 }
 
 .filter-group {
@@ -224,50 +295,82 @@ select.form-control {
 }
 
 .filter-select {
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 1.125rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     font-size: 0.875rem;
     cursor: pointer;
     transition: var(--transition);
-    background: white;
+    background: var(--bg-secondary);
+    font-weight: 500;
+}
+
+.filter-select:hover {
+    border-color: #d1d5db;
+    background: var(--bg-primary);
 }
 
 .filter-select:focus {
     outline: none;
     border-color: var(--primary-color);
+    background: var(--bg-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
 /* 统计信息 */
 .stats {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
     margin-bottom: 2rem;
     animation: fadeInUp 0.6s ease 0.2s backwards;
 }
 
 .stat-item {
     flex: 1;
-    background: white;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+    backdrop-filter: blur(10px);
+    padding: 2rem 1.5rem;
+    border-radius: var(--border-radius-lg);
     text-align: center;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.stat-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
 }
 
 .stat-number {
     display: block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 0.25rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
 }
 
 .stat-label {
     font-size: 0.875rem;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    font-weight: 600;
 }
 
 /* 日记列表 */
@@ -278,14 +381,16 @@ select.form-control {
 }
 
 .diary-item {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
     animation: slideIn 0.4s ease;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .diary-item::before {
@@ -293,14 +398,20 @@ select.form-control {
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
+    width: 5px;
     height: 100%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+    border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
 }
 
 .diary-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.diary-item:hover::before {
+    width: 6px;
 }
 
 .diary-header {
@@ -315,21 +426,31 @@ select.form-control {
 }
 
 .diary-title {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.3px;
+    line-height: 1.4;
 }
 
 .diary-meta {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
     font-size: 0.875rem;
     color: var(--text-secondary);
+    align-items: center;
+}
+
+.diary-meta > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .diary-mood {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .diary-actions {
@@ -340,38 +461,49 @@ select.form-control {
 .btn-icon {
     background: transparent;
     border: none;
-    padding: 0.5rem;
+    padding: 0.625rem;
     cursor: pointer;
-    border-radius: 6px;
-    transition: var(--transition);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-fast);
     font-size: 1.25rem;
+    position: relative;
 }
 
 .btn-icon:hover {
     background: var(--bg-secondary);
+    transform: scale(1.1);
+}
+
+.btn-icon:active {
+    transform: scale(0.95);
 }
 
 .btn-edit:hover {
     color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
 }
 
 .btn-delete:hover {
     color: var(--danger-color);
+    background: rgba(239, 68, 68, 0.1);
 }
 
 .diary-content {
     color: var(--text-secondary);
     line-height: 1.8;
     white-space: pre-wrap;
+    font-size: 0.9375rem;
 }
 
 /* 空状态 */
 .empty-state {
     text-align: center;
-    padding: 4rem 2rem;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     display: none;
     animation: fadeIn 0.6s ease;
 }
@@ -381,19 +513,31 @@ select.form-control {
 }
 
 .empty-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .empty-state h3 {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .empty-state p {
     color: var(--text-secondary);
+    font-size: 1.0625rem;
 }
 
 /* 模态框 */
@@ -404,7 +548,8 @@ select.form-control {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -417,22 +562,25 @@ select.form-control {
 
 .modal-content {
     background: white;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    max-width: 400px;
+    padding: 2.5rem;
+    border-radius: var(--border-radius-lg);
+    max-width: 420px;
     width: 90%;
-    box-shadow: var(--shadow-lg);
-    animation: slideUp 0.3s ease;
+    box-shadow: var(--shadow-xl);
+    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-content h3 {
     margin-bottom: 1rem;
     color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .modal-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 .modal-actions {
@@ -487,27 +635,27 @@ select.form-control {
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
     body {
-        padding: 1rem 0.5rem;
+        padding: 1.5rem 0.75rem;
     }
 
     .header h1 {
-        font-size: 2rem;
+        font-size: 2.25rem;
     }
 
     .diary-editor,
     .search-bar {
-        padding: 1.5rem 1rem;
+        padding: 1.75rem 1.25rem;
     }
 
     .search-bar {
@@ -526,6 +674,10 @@ select.form-control {
         flex-direction: column;
     }
 
+    .stat-item {
+        padding: 1.5rem;
+    }
+
     .diary-header {
         flex-direction: column;
         gap: 1rem;
@@ -534,11 +686,19 @@ select.form-control {
     .diary-actions {
         align-self: flex-end;
     }
+
+    .diary-item {
+        padding: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
     .header h1 {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
 
     .subtitle {
@@ -546,11 +706,93 @@ select.form-control {
     }
 
     .diary-editor {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
+        border-radius: var(--border-radius);
+    }
+
+    .search-bar {
+        padding: 1.5rem 1rem;
+        border-radius: var(--border-radius);
+    }
+
+    .stat-item {
+        border-radius: var(--border-radius);
+    }
+
+    .diary-item {
+        border-radius: var(--border-radius);
     }
 
     .modal-content {
-        padding: 1.5rem;
+        padding: 2rem 1.5rem;
     }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .empty-state {
+        padding: 3rem 1.5rem;
+    }
+
+    .empty-icon {
+        font-size: 4rem;
+    }
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* 选中文本样式 */
+::selection {
+    background: rgba(99, 102, 241, 0.3);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: rgba(99, 102, 241, 0.3);
+    color: var(--text-primary);
+}
+
+/* 聚焦可访问性 */
+*:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* 加载动画增强 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* 为表单元素添加平滑过渡 */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    will-change: transform, border-color;
 }
 
