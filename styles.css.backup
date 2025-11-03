@@ -6,36 +6,28 @@
 }
 
 :root {
-    /* 海洋主题配色 */
-    --primary-color: #4a90e2;      /* 蔚蓝海洋 */
-    --primary-hover: #357abd;      /* 深蓝 */
-    --secondary-color: #7bb3d9;    /* 天空蓝 */
-    --accent-color: #ff6b9d;       /* 珊瑚粉 */
-    --danger-color: #ff7f7f;       /* 温暖红 */
-    --danger-hover: #ff5c5c;
-    --success-color: #5cb85c;      /* 海草绿 */
-    --info-color: #5dade2;         /* 清澈蓝 */
-    --warning-color: #f39c12;      /* 沙滩黄 */
-    
-    /* 文本颜色 */
-    --text-primary: #2c3e50;       /* 深灰蓝 */
-    --text-secondary: #6c7a89;     /* 温和灰 */
-    
-    /* 背景颜色 */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;       /* 淡沙色 */
-    --bg-tertiary: #e8ecef;       /* 浅沙滩 */
-    
-    /* 边框和阴影 */
-    --border-color: #d1d9e6;       /* 柔和的边框 */
-    --shadow-sm: 0 2px 8px rgba(74, 144, 226, 0.06);
-    --shadow-md: 0 4px 16px rgba(74, 144, 226, 0.08);
-    --shadow-lg: 0 8px 32px rgba(74, 144, 226, 0.12);
-    --shadow-xl: 0 16px 48px rgba(74, 144, 226, 0.15);
-    
-    /* 圆角和过渡 */
-    --border-radius: 20px;
-    --border-radius-sm: 12px;
+    /* 自然配色 - 森林、海洋、沙漠灵感 */
+    --primary-color: #5A8F7B;        /* 森林绿 */
+    --primary-hover: #4A7C6A;
+    --secondary-color: #7BA3A6;      /* 海洋蓝 */
+    --accent-color: #D4A574;         /* 沙漠金 */
+    --danger-color: #C85C5C;         /* 柔和的红 */
+    --danger-hover: #B44A4A;
+    --success-color: #6B9B7C;        /* 青翠绿 */
+    --info-color: #6B93A6;           /* 海水蓝 */
+    --warning-color: #E5B567;        /* 沙土黄 */
+    --text-primary: #2C3E3C;         /* 深森林绿 */
+    --text-secondary: #6B7C7A;       /* 灰绿色 */
+    --bg-primary: #FFFFFF;           /* 纯白 */
+    --bg-secondary: #F5F9F7;         /* 淡绿白 */
+    --bg-tertiary: #EAF2EF;          /* 薄荷绿 */
+    --border-color: #D6E4DF;         /* 浅绿灰 */
+    --shadow-sm: 0 1px 3px rgba(90, 143, 123, 0.08);
+    --shadow-md: 0 3px 10px rgba(90, 143, 123, 0.12);
+    --shadow-lg: 0 8px 24px rgba(90, 143, 123, 0.15);
+    --shadow-xl: 0 16px 36px rgba(90, 143, 123, 0.18);
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -43,8 +35,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
         'Microsoft YaHei', sans-serif;
-    /* 海洋渐变背景：从深海蓝到浅海蓝 */
-    background: linear-gradient(135deg, #4a90e2 0%, #7bb3d9 50%, #a8d5e2 100%);
+    /* 自然渐变：从森林到海洋 */
+    background: linear-gradient(135deg, #E8F5E9 0%, #E0F2F1 40%, #FFF8E1 100%);
     background-attachment: fixed;
     min-height: 100vh;
     padding: 2rem 1rem;
@@ -60,10 +52,10 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    /* 海浪波纹效果 */
-    background: radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 90%, rgba(255, 255, 255, 0.1) 0%, transparent 35%);
+    /* 柔和的自然光效 */
+    background: radial-gradient(circle at 20% 30%, rgba(90, 143, 123, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(123, 163, 166, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(212, 165, 116, 0.03) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
@@ -82,7 +74,7 @@ body::before {
 .header {
     text-align: center;
     margin-bottom: 3rem;
-    color: white;
+    color: var(--text-primary);
     animation: fadeInDown 0.6s ease;
 }
 
@@ -90,29 +82,30 @@ body::before {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    /* 自然色渐变文字 */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     letter-spacing: -0.5px;
-    text-transform: lowercase;
 }
 
 .subtitle {
     font-size: 1.125rem;
-    opacity: 0.92;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-    font-style: italic;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 /* 日记编辑器 */
 .diary-editor {
-    background: rgba(255, 255, 255, 0.98);
+    background: var(--bg-primary);
     border-radius: var(--border-radius);
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-lg);
     animation: fadeInUp 0.6s ease;
-    border: 1px solid rgba(74, 144, 226, 0.12);
-    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
 }
@@ -124,7 +117,8 @@ body::before {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    /* 自然色彩流动：森林绿→海洋蓝→沙漠金 */
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     background-size: 200% 100%;
     animation: shimmer 4s ease-in-out infinite;
 }
@@ -206,7 +200,7 @@ body::before {
     outline: none;
     border-color: var(--primary-color);
     background: var(--bg-primary);
-    box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.12);
+    box-shadow: 0 0 0 3px rgba(90, 143, 123, 0.12);
     transform: translateY(-1px);
 }
 
@@ -258,13 +252,12 @@ select.form-control {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     box-shadow: var(--shadow-md);
-    border: none;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    filter: brightness(1.08);
+    background: linear-gradient(135deg, var(--primary-hover), var(--secondary-color));
 }
 
 .btn-primary:active {
@@ -279,15 +272,15 @@ select.form-control {
 }
 
 .btn-secondary:hover {
-    background: var(--bg-primary);
+    background: var(--bg-tertiary);
     border-color: var(--primary-color);
     color: var(--primary-color);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     box-shadow: var(--shadow-md);
 }
 
 .btn-danger {
-    background: linear-gradient(135deg, var(--danger-color), #fa5252);
+    background: var(--danger-color);
     color: white;
     box-shadow: var(--shadow-md);
 }
@@ -295,7 +288,7 @@ select.form-control {
 .btn-danger:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    filter: brightness(1.05);
+    background: var(--danger-hover);
 }
 
 .form-actions {
@@ -306,7 +299,7 @@ select.form-control {
 
 /* 搜索栏 */
 .search-bar {
-    background: rgba(255, 255, 255, 0.95);
+    background: white;
     padding: 1.5rem;
     border-radius: var(--border-radius);
     margin-bottom: 1.5rem;
@@ -315,8 +308,7 @@ select.form-control {
     flex-wrap: wrap;
     box-shadow: var(--shadow-md);
     animation: fadeInUp 0.6s ease 0.1s backwards;
-    border: 1px solid rgba(74, 144, 226, 0.1);
-    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
 }
 
 .search-group {
@@ -343,7 +335,7 @@ select.form-control {
     outline: none;
     border-color: var(--primary-color);
     background: var(--bg-primary);
-    box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.12);
+    box-shadow: 0 0 0 3px rgba(90, 143, 123, 0.12);
     transform: translateY(-1px);
 }
 
@@ -372,7 +364,7 @@ select.form-control {
     outline: none;
     border-color: var(--primary-color);
     background: var(--bg-primary);
-    box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.12);
+    box-shadow: 0 0 0 3px rgba(90, 143, 123, 0.12);
 }
 
 /* 统计信息 */
@@ -385,19 +377,19 @@ select.form-control {
 
 .stat-item {
     flex: 1;
-    background: rgba(255, 255, 255, 0.95);
+    background: white;
     padding: 1.75rem 1.5rem;
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
-    border: 1px solid rgba(74, 144, 226, 0.1);
-    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
 }
 
 .stat-item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
 }
 
 .stat-number {
@@ -427,7 +419,7 @@ select.form-control {
 }
 
 .diary-item {
-    background: rgba(255, 255, 255, 0.95);
+    background: white;
     border-radius: var(--border-radius);
     padding: 1.75rem;
     box-shadow: var(--shadow-md);
@@ -435,7 +427,7 @@ select.form-control {
     animation: slideIn 0.4s ease;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .diary-item::before {
@@ -445,14 +437,15 @@ select.form-control {
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+    /* 自然色彩装饰条 */
+    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     opacity: 0.7;
 }
 
 .diary-item:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: var(--shadow-xl);
-    border-color: rgba(74, 144, 226, 0.25);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
 }
 
 .diary-item:hover::before {
@@ -533,12 +526,12 @@ select.form-control {
 }
 
 .btn-edit:hover {
-    background: rgba(74, 144, 226, 0.12);
+    background: rgba(102, 126, 234, 0.1);
     color: var(--primary-color);
 }
 
 .btn-delete:hover {
-    background: rgba(255, 127, 127, 0.12);
+    background: rgba(255, 107, 107, 0.1);
     color: var(--danger-color);
 }
 
@@ -562,13 +555,12 @@ select.form-control {
 .empty-state {
     text-align: center;
     padding: 5rem 2rem;
-    background: rgba(255, 255, 255, 0.95);
+    background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
     display: none;
     animation: fadeIn 0.6s ease;
-    border: 1px solid rgba(74, 144, 226, 0.1);
-    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
 }
 
 .empty-state.show {
@@ -622,15 +614,14 @@ select.form-control {
 }
 
 .modal-content {
-    background: rgba(255, 255, 255, 0.98);
+    background: white;
     padding: 2.5rem;
     border-radius: var(--border-radius);
     max-width: 420px;
     width: 90%;
     box-shadow: var(--shadow-xl);
     animation: slideUp 0.3s ease;
-    border: 1px solid rgba(74, 144, 226, 0.12);
-    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
 }
 
 .modal-content h3 {
@@ -731,12 +722,12 @@ select.form-control {
 
 /* 选择文本样式 */
 ::selection {
-    background: rgba(74, 144, 226, 0.25);
+    background: rgba(90, 143, 123, 0.25);
     color: var(--text-primary);
 }
 
 ::-moz-selection {
-    background: rgba(74, 144, 226, 0.25);
+    background: rgba(90, 143, 123, 0.25);
     color: var(--text-primary);
 }
 
@@ -756,7 +747,7 @@ select.form-control {
 .search-input:focus-visible,
 .filter-select:focus-visible,
 .btn-icon:focus-visible {
-    outline: 3px solid rgba(74, 144, 226, 0.45);
+    outline: 2px solid rgba(90, 143, 123, 0.4);
     outline-offset: 2px;
 }
 
@@ -871,3 +862,4 @@ select.form-control {
         font-size: 0.9375rem;
     }
 }
+
