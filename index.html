@@ -1,78 +1,24 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测测你是人还是狗 🐕</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <!-- 开始页面 -->
-        <div id="startPage" class="page active">
-            <div class="start-content">
-                <h1 class="main-title">🐕 测测你是人还是狗 👤</h1>
-                <p class="subtitle">回答8个简单的问题，看看你的灵魂更接近人还是狗！</p>
-                <div class="emoji-container">
-                    <span class="emoji bounce">🐶</span>
-                    <span class="emoji bounce-delay">❓</span>
-                    <span class="emoji bounce">👨</span>
-                </div>
-                <button id="startBtn" class="btn btn-primary btn-large">开始测试</button>
-            </div>
-        </div>
-
-        <!-- 测试页面 -->
-        <div id="quizPage" class="page">
-            <div class="progress-bar">
-                <div id="progress" class="progress-fill"></div>
-            </div>
-            <div class="quiz-content">
-                <div class="question-number">
-                    <span id="currentQuestion">1</span> / 8
-                </div>
-                <h2 id="questionText" class="question-text"></h2>
-                <div id="optionsContainer" class="options-container">
-                    <!-- 选项将通过JS动态生成 -->
-                </div>
-            </div>
-        </div>
-
-        <!-- 结果页面 -->
-        <div id="resultPage" class="page">
-            <div class="result-content">
-                <div id="resultEmoji" class="result-emoji"></div>
-                <h2 id="resultTitle" class="result-title"></h2>
-                <p id="resultDescription" class="result-description"></p>
-                <div class="score-display">
-                    <div class="score-item">
-                        <span class="score-label">人性指数</span>
-                        <div class="score-bar">
-                            <div id="humanBar" class="score-bar-fill human"></div>
-                        </div>
-                        <span id="humanScore" class="score-value">0%</span>
-                    </div>
-                    <div class="score-item">
-                        <span class="score-label">狗性指数</span>
-                        <div class="score-bar">
-                            <div id="dogBar" class="score-bar-fill dog"></div>
-                        </div>
-                        <span id="dogScore" class="score-value">0%</span>
-                    </div>
-                </div>
-                <div class="result-actions">
-                    <button id="restartBtn" class="btn btn-primary">重新测试</button>
-                    <button id="shareBtn" class="btn btn-secondary">分享结果</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 分享提示 -->
-    <div id="shareToast" class="toast">
-        📋 已复制分享文本！
-    </div>
-
-    <script src="app.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Trae Project</title>
+    <script type="module">
+      if (import.meta.hot?.on) {
+        import.meta.hot.on('vite:error', (error) => {
+          if (error.err) {
+            console.error(
+              [error.err.message, error.err.frame].filter(Boolean).join('\n'),
+            )
+          }
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
