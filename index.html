@@ -1,50 +1,70 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <!-- 文档元信息 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>测测你是人还是狗 🐕</title>
+    <!-- 引入外部样式表 -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- 主容器：包含所有页面内容 -->
     <div class="container">
-        <!-- 开始页面 -->
+        
+        <!-- ==================== 开始页面 ==================== -->
+        <!-- 用户首次看到的页面，包含测试介绍和开始按钮 -->
         <div id="startPage" class="page active">
             <div class="start-content">
+                <!-- 主标题 -->
                 <h1 class="main-title">🐕 测测你是人还是狗 👤</h1>
+                <!-- 副标题说明 -->
                 <p class="subtitle">回答8个简单的问题，看看你的灵魂更接近人还是狗！</p>
+                <!-- 装饰性表情符号容器 -->
                 <div class="emoji-container">
                     <span class="emoji bounce">🐶</span>
                     <span class="emoji bounce-delay">❓</span>
                     <span class="emoji bounce">👨</span>
                 </div>
+                <!-- 开始测试按钮 -->
                 <button id="startBtn" class="btn btn-primary btn-large">开始测试</button>
             </div>
         </div>
 
-        <!-- 测试页面 -->
+        <!-- ==================== 测试页面 ==================== -->
+        <!-- 显示问题和选项的页面 -->
         <div id="quizPage" class="page">
+            <!-- 进度条：显示当前答题进度 -->
             <div class="progress-bar">
                 <div id="progress" class="progress-fill"></div>
             </div>
+            <!-- 测试内容区域 -->
             <div class="quiz-content">
+                <!-- 题目编号显示 -->
                 <div class="question-number">
                     <span id="currentQuestion">1</span> / 8
                 </div>
+                <!-- 问题文本 -->
                 <h2 id="questionText" class="question-text"></h2>
+                <!-- 选项容器：选项按钮由 JavaScript 动态生成 -->
                 <div id="optionsContainer" class="options-container">
-                    <!-- 选项将通过JS动态生成 -->
                 </div>
             </div>
         </div>
 
-        <!-- 结果页面 -->
+        <!-- ==================== 结果页面 ==================== -->
+        <!-- 显示测试结果的页面 -->
         <div id="resultPage" class="page">
             <div class="result-content">
+                <!-- 结果表情符号 -->
                 <div id="resultEmoji" class="result-emoji"></div>
+                <!-- 结果标题 -->
                 <h2 id="resultTitle" class="result-title"></h2>
+                <!-- 结果描述 -->
                 <p id="resultDescription" class="result-description"></p>
+                <!-- 分数显示区域 -->
                 <div class="score-display">
+                    <!-- 人性指数 -->
                     <div class="score-item">
                         <span class="score-label">人性指数</span>
                         <div class="score-bar">
@@ -52,6 +72,7 @@
                         </div>
                         <span id="humanScore" class="score-value">0%</span>
                     </div>
+                    <!-- 狗性指数 -->
                     <div class="score-item">
                         <span class="score-label">狗性指数</span>
                         <div class="score-bar">
@@ -60,6 +81,7 @@
                         <span id="dogScore" class="score-value">0%</span>
                     </div>
                 </div>
+                <!-- 操作按钮区域 -->
                 <div class="result-actions">
                     <button id="restartBtn" class="btn btn-primary">重新测试</button>
                     <button id="shareBtn" class="btn btn-secondary">分享结果</button>
@@ -68,11 +90,13 @@
         </div>
     </div>
 
-    <!-- 分享提示 -->
+    <!-- ==================== 分享提示 ==================== -->
+    <!-- 复制成功后显示的提示消息 -->
     <div id="shareToast" class="toast">
         📋 已复制分享文本！
     </div>
 
+    <!-- 引入 JavaScript 脚本 -->
     <script src="app.js"></script>
 </body>
 </html>

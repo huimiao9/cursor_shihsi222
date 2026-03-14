@@ -1,6 +1,18 @@
-// 测测你是人还是狗 - 趣味测试应用
+/**
+ * 测测你是人还是狗 - 趣味测试应用
+ * 
+ * 这是一个趣味心理测试应用，通过8道选择题来评估用户的行为特征
+ * 更接近人类还是狗狗的特质
+ * 
+ * @author 开发者
+ * @version 1.0.0
+ */
 
-// 测试题目数据
+/**
+ * 测试题目数据数组
+ * 每个题目包含问题文本和两个选项
+ * score: 1 表示人类特质，2 表示狗狗特质
+ */
 const questions = [
     {
         question: '早上起床后你第一件事是？',
@@ -60,7 +72,12 @@ const questions = [
     }
 ];
 
-// 结果配置
+/**
+ * 结果配置数组
+ * 根据总分范围匹配对应的结果类型
+ * minScore/maxScore: 分数范围
+ * humanPercent/dogPercent: 人性/狗性指数百分比
+ */
 const results = [
     {
         minScore: 8,
@@ -114,35 +131,57 @@ const results = [
     }
 ];
 
-// 应用状态
+/**
+ * QuizApp 测试应用主类
+ * 负责管理整个测试流程，包括：
+ * - 页面切换
+ * - 题目展示
+ * - 分数计算
+ * - 结果显示
+ * - 分享功能
+ */
 class QuizApp {
+    /**
+     * 构造函数 - 初始化应用状态
+     * currentQuestionIndex: 当前题目索引
+     * totalScore: 累计得分
+     */
     constructor() {
         this.currentQuestionIndex = 0;
         this.totalScore = 0;
         this.init();
     }
 
+    /**
+     * 初始化方法
+     * 设置事件监听器
+     */
     init() {
         this.setupEventListeners();
     }
 
+    /**
+     * 设置所有按钮的事件监听器
+     * 包括：开始测试、重新测试、分享结果按钮
+     */
     setupEventListeners() {
-        // 开始测试按钮
         document.getElementById('startBtn').addEventListener('click', () => {
             this.startQuiz();
         });
 
-        // 重新测试按钮
         document.getElementById('restartBtn').addEventListener('click', () => {
             this.restartQuiz();
         });
 
-        // 分享按钮
         document.getElementById('shareBtn').addEventListener('click', () => {
             this.shareResult();
         });
     }
 
+    /**
+     * 开始测试
+     * 重置状态并切换到测试页面
+     */
     startQuiz() {
         this.currentQuestionIndex = 0;
         this.totalScore = 0;
@@ -150,20 +189,20 @@ class QuizApp {
         this.showQuestion();
     }
 
+    /**
+     * 显示当前题目
+     * 更新进度条、题目编号、题目文本和选项按钮
+     */
     showQuestion() {
         const question = questions[this.currentQuestionIndex];
         const progress = ((this.currentQuestionIndex + 1) / questions.length) * 100;
 
-        // 更新进度条
         document.getElementById('progress').style.width = `${progress}%`;
 
-        // 更新问题编号
         document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
 
-        // 更新问题文本
         document.getElementById('questionText').textContent = question.question;
 
-        // 渲染选项
         const optionsContainer = document.getElementById('optionsContainer');
         optionsContainer.innerHTML = '';
 
@@ -181,10 +220,14 @@ class QuizApp {
         });
     }
 
+    /**
+     * 处理选项选择
+     * 累加分数，延迟后显示下一题或结果
+     * @param {number} score - 选中选项的分数
+     */
     selectOption(score) {
         this.totalScore += score;
 
-        // 延迟后显示下一题或结果
         setTimeout(() => {
             if (this.currentQuestionIndex < questions.length - 1) {
                 this.currentQuestionIndex++;
@@ -195,8 +238,11 @@ class QuizApp {
         }, 300);
     }
 
+    /**
+     * 显示测试结果
+     * 根据总分匹配结果类型，更新结果页面内容
+     */
     showResult() {
-        // 找到对应的结果
         const result = results.find(r =>
             this.totalScore >= r.minScore && this.totalScore <= r.maxScore
         );
@@ -206,18 +252,14 @@ class QuizApp {
             return;
         }
 
-        // 切换到结果页面
         this.switchPage('resultPage');
 
-        // 显示结果
         document.getElementById('resultEmoji').textContent = result.emoji;
         document.getElementById('resultTitle').textContent = result.title;
         document.getElementById('resultDescription').textContent = result.description;
 
-        // 保存结果用于分享
         this.currentResult = result;
 
-        // 动画显示分数条
         setTimeout(() => {
             document.getElementById('humanBar').style.width = `${result.humanPercent}%`;
             document.getElementById('dogBar').style.width = `${result.dogPercent}%`;
@@ -226,16 +268,23 @@ class QuizApp {
         }, 300);
     }
 
+    /**
+     * 重新开始测试
+     * 调用 startQuiz 重置所有状态
+     */
     restartQuiz() {
         this.startQuiz();
     }
 
+    /**
+     * 分享测试结果
+     * 将结果文本复制到剪贴板
+     */
     shareResult() {
         if (!this.currentResult) return;
 
         const shareText = `我在「测测你是人还是狗」测试中的结果是：${this.currentResult.title}\n${this.currentResult.description}\n人性指数：${this.currentResult.humanPercent}% | 狗性指数：${this.currentResult.dogPercent}%`;
 
-        // 复制到剪贴板
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(shareText)
                 .then(() => {
@@ -250,6 +299,11 @@ class QuizApp {
         }
     }
 
+    /**
+     * 备用复制方法
+     * 用于不支持 Clipboard API 的浏览器
+     * @param {string} text - 要复制的文本
+     */
     fallbackCopyToClipboard(text) {
         const textArea = document.createElement('textarea');
         textArea.value = text;
@@ -269,6 +323,10 @@ class QuizApp {
         document.body.removeChild(textArea);
     }
 
+    /**
+     * 显示分享成功提示
+     * 3秒后自动隐藏
+     */
     showToast() {
         const toast = document.getElementById('shareToast');
         toast.classList.add('show');
@@ -277,18 +335,24 @@ class QuizApp {
         }, 3000);
     }
 
+    /**
+     * 切换页面显示
+     * 隐藏所有页面，显示目标页面
+     * @param {string} pageId - 目标页面的ID
+     */
     switchPage(pageId) {
-        // 隐藏所有页面
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
         });
 
-        // 显示目标页面
         document.getElementById(pageId).classList.add('active');
     }
 }
 
-// 初始化应用
+/**
+ * 应用入口
+ * DOM 加载完成后初始化 QuizApp 实例
+ */
 document.addEventListener('DOMContentLoaded', () => {
     new QuizApp();
 });

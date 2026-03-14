@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <!-- 文档元信息 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>扫雷游戏</title>
+    
+    <!-- ==================== 内嵌样式表 ==================== -->
     <style>
+        /* 全局重置样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* 页面主体样式 */
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -20,6 +25,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
+        /* 游戏容器样式 */
         .container {
             background: white;
             padding: 30px;
@@ -27,6 +33,7 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
+        /* 游戏标题样式 */
         h1 {
             text-align: center;
             color: #333;
@@ -34,6 +41,7 @@
             font-size: 2em;
         }
 
+        /* 控制栏样式 */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -42,6 +50,7 @@
             gap: 15px;
         }
 
+        /* 游戏信息显示样式 */
         .info {
             display: flex;
             gap: 20px;
@@ -56,6 +65,7 @@
             border-radius: 8px;
         }
 
+        /* 通用按钮样式 */
         button {
             background: #667eea;
             color: white;
@@ -72,6 +82,7 @@
             background: #5568d3;
         }
 
+        /* 难度选择按钮组 */
         .difficulty {
             display: flex;
             gap: 10px;
@@ -82,6 +93,7 @@
             font-size: 0.9em;
         }
 
+        /* 游戏棋盘样式 */
         #game-board {
             display: inline-grid;
             gap: 2px;
@@ -90,6 +102,7 @@
             border-radius: 8px;
         }
 
+        /* 单元格样式 */
         .cell {
             width: 30px;
             height: 30px;
@@ -104,25 +117,30 @@
             user-select: none;
         }
 
+        /* 单元格悬停效果 */
         .cell:hover:not(.revealed):not(.flagged) {
             background: #ccc;
         }
 
+        /* 已揭开单元格样式 */
         .cell.revealed {
             background: #eee;
             border: 1px solid #999;
             cursor: default;
         }
 
+        /* 已标记单元格样式 */
         .cell.flagged {
             background: #ffd700;
             font-size: 18px;
         }
 
+        /* 地雷单元格样式 */
         .cell.mine {
             background: #ff4444;
         }
 
+        /* 数字颜色样式（1-8 对应不同颜色） */
         .cell.number-1 { color: #0000ff; }
         .cell.number-2 { color: #008000; }
         .cell.number-3 { color: #ff0000; }
@@ -132,6 +150,7 @@
         .cell.number-7 { color: #000000; }
         .cell.number-8 { color: #808080; }
 
+        /* 游戏结束弹窗样式 */
         .game-over {
             position: fixed;
             top: 50%;
@@ -150,14 +169,17 @@
             font-size: 2em;
         }
 
+        /* 胜利弹窗标题颜色 */
         .game-over.win h2 {
             color: #4caf50;
         }
 
+        /* 失败弹窗标题颜色 */
         .game-over.lose h2 {
             color: #f44336;
         }
 
+        /* 遮罩层样式 */
         .overlay {
             position: fixed;
             top: 0;
@@ -168,40 +190,64 @@
             z-index: 999;
         }
 
+        /* 隐藏元素 */
         .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
+    <!-- 游戏主容器 -->
     <div class="container">
+        <!-- 游戏标题 -->
         <h1>💣 扫雷游戏 💣</h1>
 
+        <!-- 控制栏：显示游戏信息和操作按钮 -->
         <div class="controls">
+            <!-- 游戏信息：剩余地雷数和计时器 -->
             <div class="info">
                 <span>🚩 <span id="mines-count">10</span></span>
                 <span>⏱️ <span id="timer">0</span>s</span>
             </div>
+            <!-- 难度选择按钮组 -->
             <div class="difficulty">
                 <button onclick="game.setDifficulty('easy')">简单</button>
                 <button onclick="game.setDifficulty('medium')">中等</button>
                 <button onclick="game.setDifficulty('hard')">困难</button>
             </div>
+            <!-- 重新开始按钮 -->
             <button onclick="game.reset()">重新开始</button>
         </div>
 
+        <!-- 游戏棋盘：由 JavaScript 动态生成 -->
         <div id="game-board"></div>
     </div>
 
+    <!-- 游戏结束遮罩层 -->
     <div id="overlay" class="overlay hidden"></div>
+    <!-- 游戏结束弹窗 -->
     <div id="game-over" class="game-over hidden">
         <h2 id="game-over-text"></h2>
         <button onclick="game.reset()">再玩一次</button>
     </div>
 
+    <!-- ==================== 游戏逻辑脚本 ==================== -->
     <script>
+        /**
+         * Minesweeper 扫雷游戏主类
+         * 实现完整的扫雷游戏逻辑，包括：
+         * - 棋盘生成和管理
+         * - 地雷放置
+         * - 单元格揭开逻辑
+         * - 胜负判定
+         * - 计时功能
+         */
         class Minesweeper {
+            /**
+             * 构造函数 - 初始化游戏配置和状态
+             */
             constructor() {
+                /* 难度配置对象 */
                 this.difficulties = {
                     easy: { rows: 8, cols: 8, mines: 10 },
                     medium: { rows: 16, cols: 16, mines: 40 },
@@ -219,6 +265,10 @@
                 this.init();
             }
 
+            /**
+             * 初始化游戏
+             * 重置所有游戏状态并创建新棋盘
+             */
             init() {
                 const config = this.difficulties[this.currentDifficulty];
                 this.rows = config.rows;
@@ -243,29 +293,43 @@
                 }
             }
 
+            /**
+             * 创建空棋盘
+             * 初始化棋盘数组、揭开状态数组和标记状态数组
+             */
             createBoard() {
+                /* 棋盘数组：存储每个单元格的值（-1 表示地雷，0-8 表示周围地雷数） */
                 this.board = Array(this.rows).fill(null).map(() =>
                     Array(this.cols).fill(0)
                 );
+                /* 揭开状态数组：记录每个单元格是否已被揭开 */
                 this.revealed = Array(this.rows).fill(null).map(() =>
                     Array(this.cols).fill(false)
                 );
+                /* 标记状态数组：记录每个单元格是否已被标记 */
                 this.flagged = Array(this.rows).fill(null).map(() =>
                     Array(this.cols).fill(false)
                 );
             }
 
+            /**
+             * 放置地雷
+             * 随机放置地雷，并更新周围单元格的数字
+             * @param {number} excludeRow - 排除的行（首次点击位置）
+             * @param {number} excludeCol - 排除的列（首次点击位置）
+             */
             placeMines(excludeRow, excludeCol) {
                 let minesPlaced = 0;
                 while (minesPlaced < this.totalMines) {
                     const row = Math.floor(Math.random() * this.rows);
                     const col = Math.floor(Math.random() * this.cols);
 
+                    /* 确保不在首次点击位置放置地雷 */
                     if (this.board[row][col] !== -1 && (row !== excludeRow || col !== excludeCol)) {
                         this.board[row][col] = -1;
                         minesPlaced++;
 
-                        // 更新周围的数字
+                        /* 更新周围单元格的数字 */
                         for (let i = -1; i <= 1; i++) {
                             for (let j = -1; j <= 1; j++) {
                                 const newRow = row + i;
@@ -279,10 +343,20 @@
                 }
             }
 
+            /**
+             * 检查坐标是否有效
+             * @param {number} row - 行索引
+             * @param {number} col - 列索引
+             * @returns {boolean} 坐标是否在棋盘范围内
+             */
             isValid(row, col) {
                 return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
             }
 
+            /**
+             * 渲染棋盘
+             * 创建所有单元格 DOM 元素并添加事件监听器
+             */
             renderBoard() {
                 const boardElement = document.getElementById('game-board');
                 boardElement.innerHTML = '';
@@ -295,7 +369,9 @@
                         cell.dataset.row = i;
                         cell.dataset.col = j;
 
+                        /* 左键点击事件 */
                         cell.addEventListener('click', (e) => this.handleClick(e, i, j));
+                        /* 右键点击事件（标记地雷） */
                         cell.addEventListener('contextmenu', (e) => this.handleRightClick(e, i, j));
 
                         boardElement.appendChild(cell);
@@ -303,17 +379,26 @@
                 }
             }
 
+            /**
+             * 处理左键点击
+             * 揭开单元格，如果是地雷则游戏结束
+             * @param {Event} e - 点击事件对象
+             * @param {number} row - 行索引
+             * @param {number} col - 列索引
+             */
             handleClick(e, row, col) {
                 if (this.gameOver || this.flagged[row][col] || this.revealed[row][col]) {
                     return;
                 }
 
+                /* 首次点击时放置地雷（确保首次点击不会踩雷） */
                 if (this.firstClick) {
                     this.placeMines(row, col);
                     this.firstClick = false;
                     this.startTimer();
                 }
 
+                /* 点击到地雷，游戏结束 */
                 if (this.board[row][col] === -1) {
                     this.gameOver = true;
                     this.revealAllMines();
@@ -324,6 +409,13 @@
                 }
             }
 
+            /**
+             * 处理右键点击
+             * 切换单元格的标记状态
+             * @param {Event} e - 点击事件对象
+             * @param {number} row - 行索引
+             * @param {number} col - 列索引
+             */
             handleRightClick(e, row, col) {
                 e.preventDefault();
 
@@ -333,6 +425,7 @@
 
                 const cell = e.target;
 
+                /* 切换标记状态 */
                 if (this.flagged[row][col]) {
                     this.flagged[row][col] = false;
                     cell.classList.remove('flagged');
@@ -348,6 +441,12 @@
                 this.updateMineCount();
             }
 
+            /**
+             * 揭开单元格
+             * 递归揭开相邻的空白单元格
+             * @param {number} row - 行索引
+             * @param {number} col - 列索引
+             */
             reveal(row, col) {
                 if (!this.isValid(row, col) || this.revealed[row][col] || this.flagged[row][col]) {
                     return;
@@ -362,10 +461,11 @@
                 const value = this.board[row][col];
 
                 if (value > 0) {
+                    /* 显示周围地雷数量 */
                     cell.textContent = value;
                     cell.classList.add(`number-${value}`);
                 } else if (value === 0) {
-                    // 自动展开周围的空格
+                    /* 空白单元格：自动展开周围的单元格 */
                     for (let i = -1; i <= 1; i++) {
                         for (let j = -1; j <= 1; j++) {
                             if (i !== 0 || j !== 0) {
@@ -376,6 +476,10 @@
                 }
             }
 
+            /**
+             * 揭开所有地雷
+             * 游戏失败时显示所有地雷位置
+             */
             revealAllMines() {
                 for (let i = 0; i < this.rows; i++) {
                     for (let j = 0; j < this.cols; j++) {
@@ -388,6 +492,10 @@
                 }
             }
 
+            /**
+             * 检查是否获胜
+             * 当所有非地雷单元格都被揭开时获胜
+             */
             checkWin() {
                 const totalCells = this.rows * this.cols;
                 if (this.revealedCount === totalCells - this.totalMines) {
@@ -397,6 +505,11 @@
                 }
             }
 
+            /**
+             * 结束游戏
+             * 显示游戏结束弹窗
+             * @param {boolean} won - 是否获胜
+             */
             endGame(won) {
                 if (this.timerInterval) {
                     clearInterval(this.timerInterval);
@@ -418,11 +531,18 @@
                 }
             }
 
+            /**
+             * 隐藏游戏结束弹窗
+             */
             hideGameOver() {
                 document.getElementById('overlay').classList.add('hidden');
                 document.getElementById('game-over').classList.add('hidden');
             }
 
+            /**
+             * 启动计时器
+             * 每秒更新一次显示
+             */
             startTimer() {
                 this.timerInterval = setInterval(() => {
                     this.timer++;
@@ -430,20 +550,33 @@
                 }, 1000);
             }
 
+            /**
+             * 更新计时器显示
+             */
             updateTimer() {
                 document.getElementById('timer').textContent = this.timer;
             }
 
+            /**
+             * 更新剩余地雷数显示
+             */
             updateMineCount() {
                 const remaining = this.totalMines - this.flagCount;
                 document.getElementById('mines-count').textContent = remaining;
             }
 
+            /**
+             * 设置游戏难度
+             * @param {string} difficulty - 难度级别（easy/medium/hard）
+             */
             setDifficulty(difficulty) {
                 this.currentDifficulty = difficulty;
                 this.reset();
             }
 
+            /**
+             * 重置游戏
+             */
             reset() {
                 if (this.timerInterval) {
                     clearInterval(this.timerInterval);
@@ -452,7 +585,7 @@
             }
         }
 
-        // 创建游戏实例
+        /* 创建游戏实例 */
         const game = new Minesweeper();
     </script>
 </body>
