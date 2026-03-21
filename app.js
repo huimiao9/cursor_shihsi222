@@ -61,6 +61,8 @@ const questions = [
 ];
 
 // 结果配置
+// 说明：每题 score=1 偏人类、score=2 偏狗狗，总分范围为 8~16，
+// 通过 minScore/maxScore 区间映射到最终测试结果。
 const results = [
     {
         minScore: 8,
