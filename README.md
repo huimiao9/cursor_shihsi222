@@ -1,94 +1,57 @@
-# 测测你是人还是狗 🐕👤
+# React + TypeScript + Vite
 
-一个有趣的性格测试网站，通过8个简单的问题，测测你的灵魂更接近人还是狗！
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## ✨ 功能特点
+Currently, two official plugins are available:
 
-- 🎯 **8个趣味问题**：精心设计的问题，轻松测试你的"人性"和"狗性"
-- 📊 **智能评分系统**：根据你的选择计算人性指数和狗性指数
-- 🎨 **精美界面**：现代化设计，流畅动画效果
-- 📱 **响应式设计**：完美支持手机、平板和电脑
-- 🔄 **可重复测试**：随时重新开始测试
-- 📋 **一键分享**：轻松复制结果分享给朋友
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 🎮 如何使用
+## Expanding the ESLint configuration
 
-1. 打开 `index.html` 文件
-2. 点击"开始测试"按钮
-3. 回答8个问题
-4. 查看你的测试结果
-5. 分享给朋友一起玩！
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 🏗️ 项目结构
-
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
-.
-├── index.html      # 主HTML文件
-├── styles.css      # 样式文件
-├── app.js          # JavaScript逻辑
-└── README.md       # 项目说明
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config({
+  extends: [
+    // other configs...
+    // Enable lint rules for React
+    reactX.configs['recommended-typescript'],
+    // Enable lint rules for React DOM
+    reactDom.configs.recommended,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
-
-## 🎭 测试结果类型
-
-- **100%人类**：理性、自制、社会性强
-- **偏人类**：主要展现人类特质，偶尔天真直接
-- **人狗平衡**：完美的平衡体，理性与热情并存
-- **偏狗狗**：热情真诚，保留一些理智
-- **100%狗狗**：纯粹的快乐和忠诚
-
-## 💻 技术栈
-
-- 纯HTML5
-- CSS3（动画、渐变、响应式设计）
-- 原生JavaScript（ES6+）
-- 无需任何框架和库
-
-## 🚀 部署
-
-这是一个纯静态网站，可以部署到任何静态网站托管服务：
-
-- GitHub Pages
-- Netlify
-- Vercel
-- 任何Web服务器
-
-只需上传所有文件即可。
-
-## 🎨 特色功能
-
-### 动画效果
-- 页面切换动画
-- 按钮悬停效果
-- 进度条动画
-- 结果展示动画
-
-### 用户体验
-- 实时进度显示
-- 流畅的交互反馈
-- 友好的结果描述
-- 便捷的分享功能
-
-## 📱 浏览器支持
-
-- Chrome (推荐)
-- Firefox
-- Safari
-- Edge
-- 移动端浏览器
-
-## 🤝 贡献
-
-欢迎提出建议和改进意见！
-
-## 📄 许可
-
-MIT License
-
-## 🎉 开始使用
-
-直接在浏览器中打开 `index.html` 文件，立即开始测试！
-
----
-
-**祝你测试愉快！无论你是人还是狗，都是最棒的！** 🐶❤️👨
