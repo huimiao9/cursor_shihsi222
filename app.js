@@ -1,61 +1,61 @@
-// 测测你是人还是狗 - 趣味测试应用
+// 测测你是牛还是马 - 趣味测试应用
 
 // 测试题目数据
 const questions = [
     {
-        question: '早上起床后你第一件事是？',
+        question: '清晨的第一件事是？',
         options: [
-            { text: '看手机刷社交媒体', icon: '📱', score: 1 },
-            { text: '伸懒腰打哈欠，然后找吃的', icon: '🥱', score: 2 }
+            { text: '慢慢伸展，整理当天计划', icon: '🧘', score: 1 },
+            { text: '精神抖擞，想马上出发奔跑', icon: '🏇', score: 2 }
         ]
     },
     {
-        question: '看到喜欢的人时你会？',
+        question: '午后休息时你更喜欢？',
         options: [
-            { text: '装作不在意，偷偷观察', icon: '😎', score: 1 },
-            { text: '立刻兴奋冲过去打招呼', icon: '🤗', score: 2 }
+            { text: '找块草地晒太阳，慢慢放空', icon: '🌾', score: 1 },
+            { text: '活动筋骨，来点轻松小跑', icon: '🐎', score: 2 }
         ]
     },
     {
-        question: '有人敲门时你的反应是？',
+        question: '遇到新环境时你的状态是？',
         options: [
-            { text: '透过猫眼看看是谁', icon: '👁️', score: 1 },
-            { text: '立刻冲到门口大声询问', icon: '🔊', score: 2 }
+            { text: '先观察一阵，再慢慢适应', icon: '👀', score: 1 },
+            { text: '快速探索，期待新冒险', icon: '🧭', score: 2 }
         ]
     },
     {
-        question: '你最喜欢的活动是？',
+        question: '朋友约你周末出游，你会？',
         options: [
-            { text: '躺在沙发上刷手机看剧', icon: '📺', score: 1 },
-            { text: '出去跑步玩耍晒太阳', icon: '🏃', score: 2 }
+            { text: '安排好路线和节奏，慢慢走', icon: '🗺️', score: 1 },
+            { text: '想去更远更刺激的地方', icon: '⛰️', score: 2 }
         ]
     },
     {
-        question: '洗澡时你的状态是？',
+        question: '对待吃饭这件事，你更像？',
         options: [
-            { text: '享受放松的温水时光', icon: '🛁', score: 1 },
-            { text: '能躲就躲，被抓到就认命', icon: '😰', score: 2 }
+            { text: '细嚼慢咽，慢慢享受', icon: '🥬', score: 1 },
+            { text: '胃口大开，吃得很有劲', icon: '🥕', score: 2 }
         ]
     },
     {
-        question: '对待食物的态度是？',
+        question: '工作/学习节奏更接近？',
         options: [
-            { text: '挑食，看心情和口味', icon: '🤔', score: 1 },
-            { text: '看到就吃，碗都舔干净', icon: '🍖', score: 2 }
+            { text: '稳扎稳打，持续输出', icon: '🧱', score: 1 },
+            { text: '冲刺型，高效又利落', icon: '⚡', score: 2 }
         ]
     },
     {
-        question: '你睡觉的姿势通常是？',
+        question: '你更擅长的风格是？',
         options: [
-            { text: '侧卧或平躺，保持优雅', icon: '😴', score: 1 },
-            { text: '四脚朝天或卷成一团', icon: '🐕', score: 2 }
+            { text: '沉稳可靠，慢慢推进', icon: '🪨', score: 1 },
+            { text: '灵活机敏，说走就走', icon: '🎯', score: 2 }
         ]
     },
     {
-        question: '听到奇怪声音时你会？',
+        question: '当你心情不错时，会选择？',
         options: [
-            { text: '先观察情况再决定', icon: '🤨', score: 1 },
-            { text: '立刻警觉，竖起耳朵', icon: '👂', score: 2 }
+            { text: '找个舒服的地方慢慢待着', icon: '🌤️', score: 1 },
+            { text: '想出去撒欢，跑一圈', icon: '💨', score: 2 }
         ]
     }
 ];
@@ -67,52 +67,52 @@ const results = [
     {
         minScore: 8,
         maxScore: 10,
-        type: '纯粹的人类',
-        emoji: '👨',
-        title: '你是100%的人类！',
-        description: '你完全展现了人类的理性、自制和社会性。你善于思考，懂得掩饰情绪，是一个成熟的现代人类。不过偶尔也可以放松一下，学学狗狗的率真哦！',
-        humanPercent: 100,
-        dogPercent: 0
+        type: '纯粹的牛系',
+        emoji: '🐮',
+        title: '你是100%的牛系！',
+        description: '你稳重踏实、耐心可靠，做事讲究节奏感，给人强烈的安全感。你就像勤恳的老黄牛，慢慢耕耘也能收获满满！',
+        cowPercent: 100,
+        horsePercent: 0
     },
     {
         minScore: 11,
         maxScore: 12,
-        type: '偏人类',
-        emoji: '🙂',
-        title: '你是偏人类的存在',
-        description: '你主要展现人类特质，但偶尔也会有些狗狗的天真和直接。你懂得控制情绪，但也不失真诚，是个有趣的灵魂！',
-        humanPercent: 75,
-        dogPercent: 25
+        type: '偏牛系',
+        emoji: '🐄',
+        title: '你是偏牛系的存在',
+        description: '你更偏爱稳定和耐心，但偶尔也会想来点马系的速度与激情。你稳而不慢，踏实又有小惊喜！',
+        cowPercent: 75,
+        horsePercent: 25
     },
     {
         minScore: 13,
         maxScore: 13,
-        type: '人狗平衡',
-        emoji: '🐶👤',
-        title: '你是完美的人狗平衡体！',
-        description: '你既有人类的理性和克制，又有狗狗的热情和真诚。你能在不同场合切换状态，是个超级有魅力的存在！',
-        humanPercent: 50,
-        dogPercent: 50
+        type: '牛马平衡',
+        emoji: '🐮🐴',
+        title: '你是完美的牛马平衡体！',
+        description: '你既有牛系的耐心与稳重，又有马系的速度与活力。你能在慢与快之间自由切换，是个超有魅力的存在！',
+        cowPercent: 50,
+        horsePercent: 50
     },
     {
         minScore: 14,
         maxScore: 15,
-        type: '偏狗狗',
-        emoji: '🐕',
-        title: '你是偏狗狗的存在',
-        description: '你有着狗狗般的热情和真诚，但也保留了一些人类的理智。你真诚、直接、热情，是个很好相处的朋友！',
-        humanPercent: 25,
-        dogPercent: 75
+        type: '偏马系',
+        emoji: '🐴',
+        title: '你是偏马系的存在',
+        description: '你有着马系的冲劲和速度，但也保留了一些牛系的稳健。你果断、热情、行动力强，是个很有带动感的伙伴！',
+        cowPercent: 25,
+        horsePercent: 75
     },
     {
         minScore: 16,
         maxScore: 16,
-        type: '纯粹的狗狗',
-        emoji: '🐕',
-        title: '你是100%的狗狗！',
-        description: '汪汪汪！你拥有狗狗般纯粹的快乐和忠诚。你热情、真诚、直率，对生活充满热爱。你的真诚让人感到温暖！记得保护好自己哦～',
-        humanPercent: 0,
-        dogPercent: 100
+        type: '纯粹的马系',
+        emoji: '🐎',
+        title: '你是100%的马系！',
+        description: '你拥有马系般的活力与自由精神，行动迅速、敢冲敢拼，充满朝气。你的奔跑能带动身边的人，记得也给自己放松一下哦！',
+        cowPercent: 0,
+        horsePercent: 100
     }
 ];
 
@@ -221,10 +221,10 @@ class QuizApp {
 
         // 动画显示分数条
         setTimeout(() => {
-            document.getElementById('humanBar').style.width = `${result.humanPercent}%`;
-            document.getElementById('dogBar').style.width = `${result.dogPercent}%`;
-            document.getElementById('humanScore').textContent = `${result.humanPercent}%`;
-            document.getElementById('dogScore').textContent = `${result.dogPercent}%`;
+            document.getElementById('cowBar').style.width = `${result.cowPercent}%`;
+            document.getElementById('horseBar').style.width = `${result.horsePercent}%`;
+            document.getElementById('cowScore').textContent = `${result.cowPercent}%`;
+            document.getElementById('horseScore').textContent = `${result.horsePercent}%`;
         }, 300);
     }
 
@@ -235,7 +235,7 @@ class QuizApp {
     shareResult() {
         if (!this.currentResult) return;
 
-        const shareText = `我在「测测你是人还是狗」测试中的结果是：${this.currentResult.title}\n${this.currentResult.description}\n人性指数：${this.currentResult.humanPercent}% | 狗性指数：${this.currentResult.dogPercent}%`;
+        const shareText = `我在「测测你是牛还是马」测试中的结果是：${this.currentResult.title}\n${this.currentResult.description}\n牛系指数：${this.currentResult.cowPercent}% | 马系指数：${this.currentResult.horsePercent}%`;
 
         // 复制到剪贴板
         if (navigator.clipboard && navigator.clipboard.writeText) {
